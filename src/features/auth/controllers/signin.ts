@@ -1,6 +1,6 @@
 import { userService } from '@service/db/user.service';
 import { IUserDocument } from '@user/interfaces/user.interface';
-import { IAuthDocument } from './../interfaces/auth.interface';
+import { IAuthDocument } from '@auth/interfaces/auth.interface';
 import { Request, Response } from 'express';
 import { config } from '@root/config';
 import HTTP_STATUS from 'http-status-codes';
@@ -35,14 +35,14 @@ export class SignIn {
       config.JWT_TOKEN!
     );
     req.session = { jwt: userJwt };
-    const userDocument: IUserDocument = {
-      ...user,
-      authId: existingUser!._id,
-      username: existingUser!.username,
-      email: existingUser!.email,
-      avatarColor: existingUser!.avatarColor,
-      createdAt: existingUser!.createdAt
-    } as IUserDocument;
-    res.status(HTTP_STATUS.OK).json({ message: 'User logged in successfully', user: userDocument, token: userJwt });
+    // const userDocument: IUserDocument = {
+    //   ...user,
+    //   authId: existingUser!._id,
+    //   username: existingUser!.username,
+    //   email: existingUser!.email,
+    //   avatarColor: existingUser!.avatarColor,
+    //   createdAt: existingUser!.createdAt
+    // } as IUserDocument;
+    res.status(HTTP_STATUS.OK).json({ message: 'User logged in successfully', user: existingUser, token: userJwt });
   }
 }
