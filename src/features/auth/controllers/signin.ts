@@ -35,14 +35,14 @@ export class SignIn {
       config.JWT_TOKEN!
     );
     req.session = { jwt: userJwt };
-    // const userDocument: IUserDocument = {
-    //   ...user,
-    //   authId: existingUser!._id,
-    //   username: existingUser!.username,
-    //   email: existingUser!.email,
-    //   avatarColor: existingUser!.avatarColor,
-    //   createdAt: existingUser!.createdAt
-    // } as IUserDocument;
-    res.status(HTTP_STATUS.OK).json({ message: 'User logged in successfully', user: existingUser, token: userJwt });
+    const userDocument: IUserDocument = {
+      ...user,
+      authId: existingUser!._id,
+      username: existingUser!.username,
+      email: existingUser!.email,
+      avatarColor: existingUser!.avatarColor,
+      createdAt: existingUser!.createdAt
+    } as IUserDocument;
+    res.status(HTTP_STATUS.OK).json({ message: 'User logged in successfully', user: userDocument, token: userJwt });
   }
 }
